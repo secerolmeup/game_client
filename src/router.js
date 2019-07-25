@@ -4,9 +4,9 @@ import Home from './views/Home.vue'
 import Landing from './views/Landing.vue'
 import Chat from '@/views/Chat.vue'
 import Register from '@/views/Register.vue'
+import Game from '@/views/game'
 
 Vue.use(Router)
-
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -38,6 +38,11 @@ export default new Router({
       path: '/',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: Game
     }
   ]
 })
