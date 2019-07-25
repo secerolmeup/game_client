@@ -19,6 +19,7 @@
           </div>
           <div class="arrowKiri" v-if="hidden === 'tipu'">
             <h1>Jangan Mudah percaya sama</h1>
+            <!-- <img src="https://thumbs.gfycat.com/DelectableBreakableHuman-small.gif" alt /> -->
             <img
               class="imgarrowKiri"
               src="https://media1.giphy.com/media/yvBOvlY4rqgXP8h1Ih/source.gif"
