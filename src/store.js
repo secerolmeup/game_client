@@ -1,19 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from "./firebase/config"
-import { stat } from 'fs';
+import router from './router'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    Rooms : []
+    Rooms : [],
+    JoinedRoom : {}
   },
   mutations: {
     createRoom(state,payload){
-      console.log('sudah');
+      router.push(`/room/${localStorage.roomId}`)
     },
     showRoom(state,payload){
       state.Rooms = payload
+    },
+    joinRoom(state,payload){
+      state.JoinedRoom = payload
+      router.push(`/room/${localStorage.roomId}`)
     }
   },
   actions: {
@@ -23,7 +28,8 @@ export default new Vuex.Store({
         name : data.room,
         players: [{
           name : x,
-          position : 0
+          position : 0,
+          roomMaster : true
         }],
       })
       .then(function(docRef){
@@ -48,13 +54,16 @@ export default new Vuex.Store({
         commit('showRoom', rooms)
       });
     },
-    joinRoom({commit,state},payload){
-      let ayam = state.Rooms.filter(el => el.id == payload.id)
-      ayam[0].players.push(localStorage.getItem('username'))
-
-      db.collection('lobby').doc(payload.id).set(ayam[0])
+    joinRoom({commit,state},{roomToJoin}){
+      // console.log(roomToJoin)
+      let newPlayer = {
+          name : localStorage.username,
+          position : 0
+      }
+      roomToJoin.players.push(newPlayer)
+      db.collection('lobby').doc(roomToJoin.id).set(roomToJoin)
       .then(()=>{
-        console.log('berhasil');
+        commit('joinRoom',roomToJoin)
       })
       .catch((err)=>{
         console.log(err);
