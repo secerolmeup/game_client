@@ -27,5 +27,11 @@ export default new Router({
       name: 'landing',
       component: Landing
     },
+    {
+      path: '/room/:roomId',
+      name: 'room',
+      component: () => import(/* webpackChunkName: "about" */ './views/Room.vue')
+    },
+
   ]
 })
