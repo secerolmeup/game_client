@@ -1,29 +1,31 @@
 <template>
-<div>
-  <h1>{{ $route.params }}</h1>
-  <h2> {{ data.name }}</h2>
-  <h3 v-for="(player,i) in data.players" :key="i"> {{ player }}</h3>
-</div>
+  <div>
+    <h1>{{ $route.params }}</h1>
+    <h2>{{ JoinedRoom.name }}</h2>
+    <h3 v-for="(player,i) in JoinedRoom.players" :key="i">{{ player }}</h3>
+    <el-button @click="leftRoom" type="danger" round>Left</el-button>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import store from "../store";
 export default {
   data() {
     return {
-      data: {}
+      dataRoom: {}
     };
   },
-  computed: {
-    ...mapState(["Rooms"])
+  methods: {
+    leftRoom() {
+      store.dispatch("leftRoom")
+    }
   },
-  mounted: function() {
-    let found = this.Rooms.filter(room => {
-      if (room.id == this.$route.params.roomId) {
-        return room;
-      }
-    })
-    this.data = found[0];
+  computed: {
+    ...mapState(["Rooms", "JoinedRoom"])
+  },
+  created: function() {
+    store.dispatch("currentRoom", this.$route.params.roomId)
   }
 };
 </script>

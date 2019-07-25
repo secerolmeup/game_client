@@ -19,6 +19,14 @@ export default new Vuex.Store({
     joinRoom(state,payload){
       state.JoinedRoom = payload
       router.push(`/room/${localStorage.roomId}`)
+    },
+    currentRoom(state,payload){
+      state.JoinedRoom = payload
+    },
+    leftRoom(state) {
+      localStorage.removeItem('roomId')
+      state.JoinedRoom = {}
+      router.push('/landing')
     }
   },
   actions: {
@@ -68,6 +76,31 @@ export default new Vuex.Store({
       .catch((err)=>{
         console.log(err);
       })
+    },
+    leftRoom: function ({commit,state}){
+      let found = state.JoinedRoom.players.filter( el =>{
+        if (el.name != localStorage.username){
+          return el
+        }
+      })
+      state.JoinedRoom.players = found
+      db.collection('lobby').doc(state.JoinedRoom.id).set(state.JoinedRoom)
+      .then(()=>{
+        commit('leftRoom')
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+
+    },
+    currentRoom({commit,state},data){
+      db.collection("lobby").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            if(doc.data().id == data){
+              commit('currentRoom', doc.data())
+            }
+        })
+    });
     }
   }
 })
