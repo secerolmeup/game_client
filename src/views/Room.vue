@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>{{ $route.params }}</h1>
-    <h2>{{ JoinedRoom.name }}</h2>
+    <h1>{{ JoinedRoom.name }}</h1>
     <h3 v-for="(player,i) in JoinedRoom.players" :key="i">{{ player }}</h3>
     <el-button @click="leftRoom" type="danger" round>Left</el-button>
   </div>
