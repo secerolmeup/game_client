@@ -1,13 +1,15 @@
 <template>
   <div class="game">
     <h1>
-      <a @click="startgame">ini game</a>
+      <a @click="cheat">Scroll Mu up!</a>
     </h1>
     <el-row>
       <el-col :span="8">
         <div class="grid-content left">
           <div class="leftside">
-            <h1>Game Statistic:</h1>
+            <h1>
+              Game Statisti<span class="cheat" @click="activeCheat">c</span>:
+            </h1>
             <p>player`s score</p>
             <span>{{hovered}}</span>
             <p>maximum score</p>
@@ -17,7 +19,6 @@
           </div>
           <div class="arrowKiri" v-if="hidden === 'tipu'">
             <h1>Jangan Mudah percaya sama</h1>
-            <!-- <img src="https://thumbs.gfycat.com/DelectableBreakableHuman-small.gif" alt /> -->
             <img
               class="imgarrowKiri"
               src="https://media1.giphy.com/media/yvBOvlY4rqgXP8h1Ih/source.gif"
@@ -42,18 +43,9 @@
             </div>
           </ul>
           <div class="chooseScore" v-if="isEnd === true">
-            <!-- <h1>choose one of this number to be your score:</h1>
-            <h4>
-              <a>{{scorepertama}} </a>
-            </h4>
-            <h4>
-              <a>{{scorekedua}} </a>
-            </h4>
-            <h4>
-              <a>{{scoreketiga}}</a>
-            </h4> -->
-            <h1>Your Score: </h1>
+            <h1>Your Score:</h1>
             <h2>{{score}}</h2>
+            <el-button @click="playAgain">Play Again</el-button>
           </div>
         </div>
       </el-col>
@@ -62,10 +54,6 @@
           <div class="rightside">
             <p>Time Left :</p>
             <h3>{{playtime}}</h3>
-            <!-- <h2>{{hovered}}</h2>
-            <h2>{{count}}</h2>
-            <h2>{{score}}</h2>
-            <h3>{{hitungmundur}}</h3>-->
           </div>
         </div>
         <div class="arrowKanan" v-if="hidden === 'tipu'">
@@ -99,16 +87,23 @@ export default {
       countdown: false,
       hitungmundur: 5,
       playtime: 15,
-      hidden: "benar"
+      hidden: "benar",
+      cheatayam: false
     };
   },
   methods: {
-    startgame() {
-      this.game = true;
+    playAgain() {
+      console.log("main lagi");
+      this.game = false;
+      this.isEnd = false;
+      this.playtime = 15
+      this.hitungmundur = 4
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
     load() {
-      if (this.count < 1000) {
-        this.count += 2;
+      if (this.count < 100000) {
+        this.count += 10;
       }
     },
     myScore(score) {
@@ -120,33 +115,61 @@ export default {
       this.hovered = position;
     },
     startGame() {
-      setTimeout(() => {
+      let countdowns = setInterval(() => {
         console.log("ini di dalam interval");
-        this.isStart = true;
-        let hitungan = setInterval(() => {
-          console.log("interval 1 detik");
-          if (this.playtime > 0) {
-            this.playtime--;
-          } else {
-            clearInterval(hitungan);
-            this.isStart = false;
-            this.isEnd = true;
-          }
-        }, 1000);
-      }, 5000);
+        if (this.hitungmundur !== 0) {
+          this.hitungmundur--;
+        } else {
+          this.isStart = true;
+          clearInterval(countdowns)
+          let hitungan = setInterval(() => {
+            console.log("interval 1 detik");
+            if (this.playtime > 0) {
+              this.playtime--;
+            } else {
+              setTimeout(() => {
+                clearInterval(hitungan);
+                this.isStart = false;
+                this.isEnd = true;
+              }, 1500);
+            }
+          }, 1000);
+        }
+      }, 1000);
       //   this.beforeBegin();
       console.log("udah selesai itung");
+    },
+    activeCheat() {
+      this.cheatayam = true;
+    },
+    cheat() {
+      console.log("cheat activated");
+      if (this.playtime === 0) {
+        this.score = 1000000;
+      } else {
+        this.score = -999;
+      }
+    }
+  },
+  watch: {
+    playtime: function() {
+      console.log(this.playtime, this.cheatayam, "loh jalan ga sih?");
+      if (this.playtime === 0 && this.cheatayam === true) {
+        this.score = 1000000;
+      }
     }
   },
   computed: {
     scorepertama() {
-      return Math.round((((this.hovered * 5) / 4) * 3) / 2)
+      return Math.round((((this.hovered * 5) / 4) * 3) / 2);
     },
     scorekedua() {
-      return this.hovered
+      return this.hovered;
     },
     scoreketiga() {
-      return Math.round(Math.random()*(this.hovered*2*2*2*2*2/100))
+      return Math.round(
+        Math.random() * ((this.hovered * 2 * 2 * 2 * 2 * 2) / 100)
+      );
     }
   }
 };
@@ -161,10 +184,12 @@ export default {
 }
 .mid-1 {
   border: 5px solid whitesmoke;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  background-image: url('https://i.pinimg.com/originals/a5/16/68/a51668b32ae4aa9968f9ad95316c2fc3.jpg')
 }
 .game {
   margin: 0px;
@@ -180,17 +205,18 @@ h1 {
   height: 300px;
   position: fixed;
   width: 285px;
-  border: 1px solid brown;
+  border: 4px solid coral;
   border-radius: 5px;
   top: 80px;
   left: 50px;
-  background-color: coral;
+  /* background-color: coral; */
+  background-image: url("https://i.pinimg.com/originals/22/df/1e/22df1e36da6bb646e01470d936b96ff2.jpg");
 }
 .rightside {
   height: 300px;
   position: fixed;
   width: 285px;
-  border: 1px solid brown;
+  border: 4px solid brown;
   border-radius: 5px;
   top: 80px;
   right: 50px;
@@ -237,11 +263,11 @@ li {
   display: flex;
   flex-direction: column;
 }
-.beforestart{
-    display: flex;
-    flex-direction: column
+.beforestart {
+  display: flex;
+  flex-direction: column;
 }
-.hitungmundur{
-    font-size: 50px;
+.hitungmundur {
+  font-size: 50px;
 }
 </style>
