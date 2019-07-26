@@ -1,15 +1,11 @@
-//iini configurasi firebase
-import firebase from 'firebase/app';
+// iini configurasi firebase
+import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-const firebaseConfig ={
-    apiKey: "AIzaSyCNp6ouPdYfwO2NM8XwCaiQYIBJ4gsdmAA",
-    authDomain: "projectgame-b35ad.firebaseapp.com",
-    databaseURL: "https://projectgame-b35ad.firebaseio.com",
-    projectId: "projectgame-b35ad",
-    storageBucket: "",
-    messagingSenderId: "531071848722",
-    appId: "1:531071848722:web:230b2de7344af427"
+const firebaseConfig = {
+  apiKey: process.env.VUE_APP_FBASE_API_KEY,
+  authDomain: process.env.VUE_APP_FBASE_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_FBASE_PROJECT_ID
 }
 
 firebase.initializeApp(firebaseConfig)

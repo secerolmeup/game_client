@@ -5,6 +5,8 @@ import Landing from './views/Landing.vue'
 // import Chat from '@/views/Chat.vue'
 // import Register from '@/views/Register.vue'
 import Game from '@/views/game'
+import Chat from '@/views/Chat'
+
 
 Vue.use(Router)
 export default new Router({
@@ -17,7 +19,20 @@ export default new Router({
     //   component: Chat
     // },
     {
-      path: '/',
+      path: '/chat/:id',
+      name: 'chat',
+      component: Chat
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: Home
+    },
+    {
+      path: '/landing',
       name: 'landing',
       component: Landing
     },
