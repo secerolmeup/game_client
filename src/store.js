@@ -34,28 +34,34 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createNewRoom: function ({ commit, state }, data) {
+    createNewRoom: function ({
+      commit,
+      state
+    }, data) {
       let x = localStorage.getItem('username')
       db.collection('lobby').add({
-        name: data.room,
-        players: [{
-          name: x,
-          position: 0,
-        }],
-        roomMaster : x,
-        messages : []
-      })
+          name: data.room,
+          players: [{
+            name: x,
+            position: 0,
+          }],
+          roomMaster: x,
+          messages: []
+        })
         .then(function (docRef) {
           localStorage.setItem('roomId', docRef.id)
-         let found = state.Rooms.filter( el => el.id == docRef.id)
-         console.log(found);
-          commit('createRoom',found[0])
+          let found = state.Rooms.filter(el => el.id == docRef.id)
+          console.log(found);
+          commit('createRoom', found[0])
         })
         .catch(err => {
           console.log(err)
         })
     },
-    getExistRoom: function ({ commit, state }) {
+    getExistRoom: function ({
+      commit,
+      state
+    }) {
       db.collection('lobby').onSnapshot(querySnapshot => {
         let rooms = []
         querySnapshot.forEach(doc => {
@@ -69,7 +75,12 @@ export default new Vuex.Store({
         commit('showRoom', rooms)
       });
     },
-    joinRoom({ commit, state }, { roomToJoin }) {
+    joinRoom({
+      commit,
+      state
+    }, {
+      roomToJoin
+    }) {
       // console.log(roomToJoin)
       let newPlayer = {
         name: localStorage.username,
@@ -84,7 +95,10 @@ export default new Vuex.Store({
           console.log(err);
         })
     },
-    leftRoom: function ({ commit, state }) {
+    leftRoom: function ({
+      commit,
+      state
+    }) {
       let found = state.JoinedRoom.players.filter(el => {
         if (el.name != localStorage.username) {
           return el
@@ -100,7 +114,10 @@ export default new Vuex.Store({
         })
 
     },
-    currentRoom({ commit, state }, data) {
+    currentRoom({
+      commit,
+      state
+    }, data) {
       db.collection("lobby").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           if (doc.data().id == data) {
@@ -108,6 +125,26 @@ export default new Vuex.Store({
           }
         })
       });
+    },
+    updatepoint({
+      commit,
+      state
+    }, data) {
+      let room = state.Rooms.filter(el => el.id == data.myroom)
+      room[0].players.forEach(el => {
+       if( el.name == localStorage.getItem('username')){
+         el.position = data.point
+       }
+      })
+
+      db.collection("lobby").doc(data.myroom).update(room[0].players)
+      .then(data =>{
+        console.log(data)
+      }) 
+      .catch(err=>{
+        console.log(err)
+      })
+
     }
   }
 })
