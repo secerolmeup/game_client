@@ -55,6 +55,7 @@
           <div class="rightside">
             <p>Time Left :</p>
             <h3>{{playtime}}</h3>
+            <player-score></player-score>
           </div>
         </div>
         <div class="arrowKanan" v-if="hidden === 'tipu'">
@@ -72,7 +73,11 @@
 
 <script>
 import { setInterval, setTimeout, clearInterval } from "timers";
+import PlayerScore from '../components/PlayersScore.vue'
 export default {
+  components : {
+    PlayerScore
+  },
   data() {
     return {
       isStart: false,

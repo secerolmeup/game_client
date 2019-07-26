@@ -11,6 +11,7 @@ export default new Vuex.Store({
   },
   mutations: {
     createRoom(state, payload) {
+      console.log(payload);
       state.JoinedRoom = payload
       router.push(`/room/${localStorage.roomId}`)
     },
@@ -18,7 +19,9 @@ export default new Vuex.Store({
       state.Rooms = payload
     },
     joinRoom(state, payload) {
+      console.log(payload, 'ini masuk');
       state.JoinedRoom = payload
+      console.log(state.JoinedRoom);
       router.push(`/room/${localStorage.roomId}`)
     },
     currentRoom(state, payload) {
@@ -27,7 +30,7 @@ export default new Vuex.Store({
     leftRoom(state) {
       localStorage.removeItem('roomId')
       state.JoinedRoom = {}
-      router.push('/landing')
+      router.push('/')
     }
   },
   actions: {
@@ -37,9 +40,10 @@ export default new Vuex.Store({
         name: data.room,
         players: [{
           name: x,
-          position: 0
+          position: 0,
         }],
-        roomMaster : x
+        roomMaster : x,
+        messages : []
       })
         .then(function (docRef) {
           localStorage.setItem('roomId', docRef.id)
@@ -72,7 +76,7 @@ export default new Vuex.Store({
         position: 0
       }
       roomToJoin.players.push(newPlayer)
-      db.collection('lobby').doc(roomToJoin.id).set(roomToJoin)
+      db.collection('lobby').doc(roomToJoin.id).update(roomToJoin)
         .then(() => {
           commit('joinRoom', roomToJoin)
         })
@@ -87,7 +91,7 @@ export default new Vuex.Store({
         }
       })
       state.JoinedRoom.players = found
-      db.collection('lobby').doc(state.JoinedRoom.id).set(state.JoinedRoom)
+      db.collection('lobby').doc(state.JoinedRoom.id).update(state.JoinedRoom)
         .then(() => {
           commit('leftRoom')
         })
