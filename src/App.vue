@@ -10,6 +10,11 @@
 </template>
 
 <style>
+html{
+  margin: 0px;
+  padding: 0px;
+  background-color: #a6dd85;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
