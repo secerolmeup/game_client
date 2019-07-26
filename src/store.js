@@ -28,7 +28,7 @@ export default new Vuex.Store({
     leftRoom(state) {
       localStorage.removeItem('roomId')
       state.JoinedRoom = {}
-      router.push('/landing')
+      router.push('/')
     },
     SET_PLAYER (state, payload) {
       state.players = payload

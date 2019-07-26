@@ -189,7 +189,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  background-image: url('https://i.pinimg.com/originals/a5/16/68/a51668b32ae4aa9968f9ad95316c2fc3.jpg')
+  /* background-image: url('https://i.pinimg.com/originals/a5/16/68/a51668b32ae4aa9968f9ad95316c2fc3.jpg') */
 }
 .game {
   margin: 0px;
