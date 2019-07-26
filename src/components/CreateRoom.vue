@@ -22,6 +22,7 @@
                 type="text"
               >Join Room</el-button>
             </div>
+            <div>Players in Room : {{room.players.length}} / 5</div>
           </el-card>
         </div>
       </div>
@@ -53,12 +54,11 @@ export default {
           name: this.Name,
           room: this.Room
         });
-      }
-      else {
+      } else {
         this.$message({
           showClose: true,
-          message: 'Gaboleh kosong gblk',
-          type: 'error'
+          message: "Gaboleh kosong gblk",
+          type: "error"
         });
       }
     },
