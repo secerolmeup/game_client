@@ -19,6 +19,7 @@
           </div>
           <div class="arrowKiri" v-if="hidden === 'tipu'">
             <h1>Jangan Mudah percaya sama</h1>
+            <!-- <img src="https://thumbs.gfycat.com/DelectableBreakableHuman-small.gif" alt /> -->
             <img
               class="imgarrowKiri"
               src="https://media1.giphy.com/media/yvBOvlY4rqgXP8h1Ih/source.gif"
@@ -54,6 +55,10 @@
           <div class="rightside">
             <p>Time Left :</p>
             <h3>{{playtime}}</h3>
+            <!-- <h2>{{hovered}}</h2>
+            <h2>{{count}}</h2>
+            <h2>{{score}}</h2>
+            <h3>{{hitungmundur}}</h3>-->
           </div>
         </div>
         <div class="arrowKanan" v-if="hidden === 'tipu'">
