@@ -17,6 +17,11 @@ export default {
   props: ["room"],
   created() {
     console.log(this.room);
+  },
+  methods: {
+    joinRoom(roomId){
+      this.$emit('toJoinRoom',roomId)
+    }
   }
 };
 </script>
