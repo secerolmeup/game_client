@@ -1,8 +1,12 @@
 <template>
-    <div>
-        <h1>Get player position</h1>
-        <button @click="getPlayerPos">click me!</button>
+  <div>
+    <div v-for="(player, i) in players" :key="i" class="row mb-1">
+      <div class="col-sm-2">{{ player.name }}:</div>
+      <div class="col-sm-10 pt-1">
+        <b-progress :value="player.position" variant="primary" :key="i"></b-progress>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -10,25 +14,26 @@ import db from '../firebase/config'
 export default {
 		data() {
 			return{
-				player: {
-					position: 0,
-				}
+				players: []
 			}
 		},
     methods: {
         getPlayerPos() {
             db
-							.collection('players')
-							.get()
-							.then((querySnapshot) => {
-									querySnapshot.forEach(player => {
-											console.log(player.data())
-											this.player.position = player.data().position
-									})
-							})
-							.catch(console.log)
+				.collection('players')
+				.get()
+				.then((querySnapshot) => {
+						querySnapshot.forEach(player => {
+								this.players.push(player.data())
+						})
+						console.log(this.players)
+				})
+				.catch(console.log)
         }
-		}
+	},
+	mounted() {
+		this.getPlayerPos()
+	}
 }
 </script>
 
