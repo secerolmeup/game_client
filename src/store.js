@@ -37,9 +37,9 @@ export default new Vuex.Store({
         name: data.room,
         players: [{
           name: x,
-          position: 0,
-          roomMaster: true
+          position: 0
         }],
+        roomMaster : x
       })
         .then(function (docRef) {
           localStorage.setItem('roomId', docRef.id)
