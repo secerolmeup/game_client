@@ -3,9 +3,13 @@ import firebase from 'firebase/app';
 import 'firebase/firestore'
 
 const firebaseConfig ={
-  apiKey: process.env.VUE_APP_API_KEY_FBASE,
-  authDomain: process.env.VUE_APP_AUTH_FBASE,
-  projectId: process.env.VUE_APP_PROJECT_ID_FBASE
+    apiKey: "AIzaSyCNp6ouPdYfwO2NM8XwCaiQYIBJ4gsdmAA",
+    authDomain: "projectgame-b35ad.firebaseapp.com",
+    databaseURL: "https://projectgame-b35ad.firebaseio.com",
+    projectId: "projectgame-b35ad",
+    storageBucket: "",
+    messagingSenderId: "531071848722",
+    appId: "1:531071848722:web:230b2de7344af427"
 }
 
 firebase.initializeApp(firebaseConfig)

@@ -1,31 +1,31 @@
 <template>
   <el-row>
     <div class="landing" v-if="!LoggedIn">
-    <el-input placeholder="Name" v-model="Name"></el-input>
-    <el-button @click="newPlayer" type="primary" round>JOIN !</el-button>
+      <el-form @submit.prevent.native="newPlayer">
+        <el-input placeholder="Name" v-model="Name"></el-input>
+        <el-button @click="newPlayer" type="primary" round>JOIN !</el-button>
+      </el-form>
     </div>
     <div class="lobby" v-if="LoggedIn">
       <el-button @click="leftGame" type="danger" round>Left Game!</el-button>
       <h1>WELCOME {{ Name }}</h1>
-    <el-input style="margin-bottom:20px" placeholder="Room" v-model="Room"></el-input>
-    <el-button @click="newRoom" type="primary" round>Create Room!</el-button>
-    <div class="container" style="display:flex; flex-wrap:wrap">
-    <div v-for="(room ,i) in Rooms" :key="i" style="margin:20px">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>{{room.name}}</span>
-          <el-button
-            @click="joinRoom(room.id)"
-            style="float: right; padding: 3px 0"
-            type="text"
-          >Join Room</el-button>
+      <el-input style="margin-bottom:20px" placeholder="Room" v-model="Room"></el-input>
+      <el-button @click="newRoom" type="primary" round>Create Room!</el-button>
+      <div class="container" style="display:flex; flex-wrap:wrap">
+        <div v-for="(room ,i) in Rooms" :key="i" style="margin:20px">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>{{room.name}}</span>
+              <el-button
+                @click="joinRoom(room.id)"
+                style="float: right; padding: 3px 0"
+                type="text"
+              >Join Room</el-button>
+            </div>
+            <div>Players in Room : {{room.players.length}} / 5</div>
+          </el-card>
         </div>
-        <div>
-          Players in Room : {{room.players.length}} / 5
-        </div>
-      </el-card>
-    </div>
-    </div>
+      </div>
     </div>
   </el-row>
 </template>
@@ -36,21 +36,31 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      Name: (localStorage.getItem('username')) ? localStorage.getItem('username') : "",
+      Name: localStorage.getItem("username")
+        ? localStorage.getItem("username")
+        : "",
       Room: "",
-      LoggedIn : false
+      LoggedIn: false
     };
   },
   methods: {
     newPlayer() {
       localStorage.setItem("username", this.Name);
-      this.LoggedIn = true
+      this.LoggedIn = true;
     },
     newRoom() {
-      store.dispatch("createNewRoom", {
-        name: this.Name,
-        room: this.Room
-      });
+      if (this.Room !== "") {
+        store.dispatch("createNewRoom", {
+          name: this.Name,
+          room: this.Room
+        });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "Gaboleh kosong gblk",
+          type: "error"
+        });
+      }
     },
     joinRoom(id) {
       let roomToJoin = this.Rooms.filter(room => {
@@ -61,24 +71,24 @@ export default {
       if (roomToJoin[0].players.length < 5) {
         localStorage.setItem("roomId", id);
         store.dispatch("joinRoom", {
-          roomToJoin : roomToJoin[0]
-        })
-      }else{
-        alert('room is full')
+          roomToJoin: roomToJoin[0]
+        });
+      } else {
+        alert("room is full");
       }
     },
-    leftGame(){
-      localStorage.clear()
-      this.LoggedIn = false
-      this.Name = ""
+    leftGame() {
+      localStorage.clear();
+      this.LoggedIn = false;
+      this.Name = "";
     }
   },
   computed: {
     ...mapState(["Rooms"])
   },
-  created : function () {
-    if(localStorage.getItem('username')) {
-      this.LoggedIn = true
+  created: function() {
+    if (localStorage.getItem("username")) {
+      this.LoggedIn = true;
     }
   }
 };
