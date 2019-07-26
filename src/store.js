@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     Rooms: [],
-    JoinedRoom: {}
+    JoinedRoom: {},
+    resultGame: []
   },
   mutations: {
     createRoom(state, payload) {
@@ -31,6 +32,10 @@ export default new Vuex.Store({
       localStorage.removeItem('roomId')
       state.JoinedRoom = {}
       router.push('/')
+    },
+    updateResult(state,payload){
+      console.log(payload)
+      state.resultGame = payload
     }
   },
   actions: {
@@ -131,17 +136,25 @@ export default new Vuex.Store({
       commit,
       state
     }, data) {
-      let room = state.Rooms.filter(el => el.id == data.myroom)
+      let global = data.myroom
+      let room = state.Rooms.filter(el => el.id == global)
       room[0].players.forEach(el => {
        if( el.name == localStorage.getItem('username')){
          el.position = data.point
        }
       })
-
-      db.collection("lobby").doc(data.myroom).update(room[0].players)
-      .then(data =>{
+      db.collection("lobby").doc(global).update({
+        players : room[0].players
+      })
+      .then(() =>{
         console.log(data)
+        // commit('updateResult',data)
+        return db.collection('lobby').doc(global).get()
       }) 
+      .then(data => {
+        // console.log(, 'ini data kok')
+        commit('updateResult',data.data().players)
+      })
       .catch(err=>{
         console.log(err)
       })

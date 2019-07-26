@@ -10,7 +10,7 @@
                 {{player.name}}
             </div>
             <div class="player-score">
-                {{player.score}}
+                {{player.position}}
             </div>
         </div>
         <img src="https://media.tenor.com/images/47559d5d0ef0a47e8c099e3472f66c58/tenor.gif" alt="pepeDance" width="50%">
@@ -21,15 +21,16 @@
 export default {
     data(){
         return {
-            players: [
-                {name: "joni", score: 1200},
-                {name: "jaja", score: 2000},
-                {name: "juna", score: 900},
-                {name: "jaka", score: 1300},
-                {name: "jola", score: 1900},
-                {name: "judika", score: 700}
+            // players: [
+            //     {name: "joni", score: 1200},
+            //     {name: "jaja", score: 2000},
+            //     {name: "juna", score: 900},
+            //     {name: "jaka", score: 1300},
+            //     {name: "jola", score: 1900},
+            //     {name: "judika", score: 700}
                 
-            ]
+            // ]
+            players: this.$store.state.resultGame
         }
     }
 }

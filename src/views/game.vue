@@ -47,6 +47,7 @@
             <h1>Your Score:</h1>
             <h2>{{score}}</h2>
             <el-button @click="playAgain">Play Again</el-button>
+            <result/>
           </div>
         </div>
       </el-col>
@@ -74,9 +75,11 @@
 <script>
 import { setInterval, setTimeout, clearInterval } from "timers";
 import PlayerScore from '../components/PlayersScore.vue'
+import result from '../components/Result.vue'
 export default {
   components : {
-    PlayerScore
+    PlayerScore,
+    result
   },
   data() {
     return {

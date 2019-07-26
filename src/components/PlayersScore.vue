@@ -14,7 +14,7 @@ export default {
   computed: {
     ...mapState(["Rooms"])
   },
-  mounted: function() {
+  created: function() {
     store.dispatch("getExistRoom");
   }
 };
