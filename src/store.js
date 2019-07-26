@@ -7,8 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     Rooms: [],
-    JoinedRoom: {},
-    players: []
+    JoinedRoom: {}
   },
   mutations: {
     createRoom(state, payload) {
@@ -28,10 +27,7 @@ export default new Vuex.Store({
     leftRoom(state) {
       localStorage.removeItem('roomId')
       state.JoinedRoom = {}
-      router.push('/')
-    },
-    SET_PLAYER (state, payload) {
-      state.players = payload
+      router.push('/landing')
     }
   },
   actions: {
