@@ -99,7 +99,7 @@ export default {
       } else {
         this.$message({
           showClose: true,
-          message: "Gaboleh kosong gblk",
+          message: "Gaboleh kosong ya",
           type: "error"
         });
       }

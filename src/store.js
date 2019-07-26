@@ -46,7 +46,8 @@ export default new Vuex.Store({
             position: 0,
           }],
           roomMaster: x,
-          messages: []
+          messages: [],
+          ready: false
         })
         .then(function (docRef) {
           localStorage.setItem('roomId', docRef.id)
