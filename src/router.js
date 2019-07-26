@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+<<<<<<< HEAD
 import Landing from './views/Landing.vue'
 // import Chat from '@/views/Chat.vue'
 // import Register from '@/views/Register.vue'
@@ -8,6 +9,9 @@ import Game from '@/views/game'
 import Chat from '@/views/Chat'
 
 
+=======
+import Game from '@/views/game'
+>>>>>>> game sedikit lagi jadi, aturan2nya baru dibikin
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -19,20 +23,7 @@ export default new Router({
     //   component: Chat
     // },
     {
-      path: '/chat/:id',
-      name: 'chat',
-      component: Chat
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: Home
-    },
-    {
-      path: '/landing',
+      path: '/',
       name: 'landing',
       component: Landing
     },

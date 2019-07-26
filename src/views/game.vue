@@ -119,6 +119,10 @@ export default {
     showposition(position) {
       console.log(position, "ini positionnya");
       this.hovered = position;
+      this.$store.dispatch('updatepoint', {
+          point : this.hovered,
+          myroom : this.$route.params.roomId
+      })
     },
     startGame() {
       let countdowns = setInterval(() => {
