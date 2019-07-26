@@ -19,6 +19,7 @@
           </div>
           <div class="arrowKiri" v-if="hidden === 'tipu'">
             <h1>Jangan Mudah percaya sama</h1>
+            <!-- <img src="https://thumbs.gfycat.com/DelectableBreakableHuman-small.gif" alt /> -->
             <img
               class="imgarrowKiri"
               src="https://media1.giphy.com/media/yvBOvlY4rqgXP8h1Ih/source.gif"
@@ -189,7 +190,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  background-image: url('https://i.pinimg.com/originals/a5/16/68/a51668b32ae4aa9968f9ad95316c2fc3.jpg')
+  /* background-image: url('https://i.pinimg.com/originals/a5/16/68/a51668b32ae4aa9968f9ad95316c2fc3.jpg') */
 }
 .game {
   margin: 0px;
