@@ -47,7 +47,9 @@
             <h1>Your Score:</h1>
             <h2>{{score}}</h2>
             <el-button @click="playAgain">Play Again</el-button>
+            <div>
             <result/>
+            </div>
           </div>
         </div>
       </el-col>
@@ -184,6 +186,10 @@ export default {
         Math.random() * ((this.hovered * 2 * 2 * 2 * 2 * 2) / 100)
       );
     }
+  },
+  mounted(){
+    let audio = new Audio('/perang.mp3')
+    audio.play()
   }
 };
 </script>

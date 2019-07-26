@@ -1,6 +1,5 @@
 <template>
-    <el-card class="box-card">
-        <center><h1>Summary</h1></center>
+    <el-card class="box-card" >
         <div class="heading">
             <h3>Player</h3>
             <h3>Score</h3>
@@ -42,13 +41,13 @@ export default {
   }
 
   .item {
-    padding: 5px 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   .box-card {
     width: 480px;
+    height: 400px;
   }
 
   .heading {
