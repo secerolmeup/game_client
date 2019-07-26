@@ -46,7 +46,7 @@
           <div class="allRoom"></div>
           <div class="container" style="display:flex; flex-wrap:wrap">
             <!-- <div v-for="(room ,i) in Rooms" :key="i" style="margin:20px"> -->
-              <RoomCard v-for="(room ,i) in Rooms" :key="i" :room="room"></RoomCard>
+              <RoomCard @toJoinRoom="joinRoom" v-for="(room ,i) in Rooms" :key="i" :room="room"></RoomCard>
             <!-- </div> -->
           </div>
         </el-main>
@@ -105,6 +105,7 @@ export default {
       }
     },
     joinRoom(id) {
+      console.log('masuk sinih')
       let roomToJoin = this.Rooms.filter(room => {
         if (room.id === id) {
           return room;
