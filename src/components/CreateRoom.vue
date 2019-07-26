@@ -1,10 +1,16 @@
 <template>
   <el-row>
+    <div class="landing" v-if="!LoggedIn">
     <el-input placeholder="Name" v-model="Name"></el-input>
-    <el-button @click="newPlayer" type="primary" round>Primary</el-button>
-    <el-input placeholder="Room" v-model="Room"></el-input>
-    <el-button @click="newRoom" type="primary" round>Primary</el-button>
-    <div v-for="(room ,i) in Rooms" :key="i">
+    <el-button @click="newPlayer" type="primary" round>JOIN !</el-button>
+    </div>
+    <div class="lobby" v-if="LoggedIn">
+      <el-button @click="leftGame" type="danger" round>Left Game!</el-button>
+      <h1>WELCOME {{ Name }}</h1>
+    <el-input style="margin-bottom:20px" placeholder="Room" v-model="Room"></el-input>
+    <el-button @click="newRoom" type="primary" round>Create Room!</el-button>
+    <div class="container" style="display:flex; flex-wrap:wrap">
+    <div v-for="(room ,i) in Rooms" :key="i" style="margin:20px">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span>{{room.name}}</span>
@@ -16,6 +22,8 @@
         </div>
       </el-card>
     </div>
+    </div>
+    </div>
   </el-row>
 </template>
 
@@ -25,13 +33,15 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      Name: "",
-      Room: ""
+      Name: (localStorage.getItem('username')) ? localStorage.getItem('username') : "",
+      Room: "",
+      LoggedIn : false
     };
   },
   methods: {
     newPlayer() {
       localStorage.setItem("username", this.Name);
+      this.LoggedIn = true
     },
     newRoom() {
       store.dispatch("createNewRoom", {
@@ -53,10 +63,20 @@ export default {
       }else{
         alert('room is full')
       }
+    },
+    leftGame(){
+      localStorage.clear()
+      this.LoggedIn = false
+      this.Name = ""
     }
   },
   computed: {
     ...mapState(["Rooms"])
+  },
+  created : function () {
+    if(localStorage.getItem('username')) {
+      this.LoggedIn = true
+    }
   }
 };
 </script>
