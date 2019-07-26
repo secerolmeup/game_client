@@ -20,6 +20,9 @@
             type="text"
           >Join Room</el-button>
         </div>
+        <div>
+          Players in Room : {{room.players.length}} / 5
+        </div>
       </el-card>
     </div>
     </div>
